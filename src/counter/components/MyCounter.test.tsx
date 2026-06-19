@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { render, screen, act, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { MyCounter } from "./MyCounter";
 
 describe("MyCounter", () => {
@@ -22,5 +22,16 @@ describe("MyCounter", () => {
     fireEvent.click(button);
 
     expect(labelH1.innerHTML).toContain(["Counter: 11"]);
+  });
+
+  test("Should decrement the value of the counter state", () => {
+    render(<MyCounter />);
+
+    const labelH1 = screen.getByRole("heading", { level: 1 });
+    const button = screen.getByRole("button", { name: "-1" });
+
+    fireEvent.click(button);
+
+    expect(labelH1.innerHTML).toContain(["Counter: 9"]);
   });
 });
